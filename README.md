@@ -129,3 +129,7 @@ python3 alecto.py -a shake128 <password> --hash-length <hash length>
 ## Disclaimer
 
 Alecto is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
+
+## License
+
+Alecto is licensed under GNU General Public License
