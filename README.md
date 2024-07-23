@@ -62,3 +62,42 @@ Alecto boasts support for a diverse array of hashing algorithms, providing users
 - md5-sha1
 - sha128
 
+## Algorithm Specification
+
+Directly specify the hashing algorithm:
+
+```bash
+python3 alecto.py -a <algorithm> <password>
+```
+
+## Custom Salt Integration
+
+Alecto can provide custom salts into the hashing process. Alecto seamlessly accommodates custom salts, providing users with granular control over the salting mechanism, a crucial aspect of robust password storage.
+
+## Fine-tuned Hash Length Specification
+
+Specific to shake_128 and shake_256 algorithms, Alecto enables users to precisely specify the hash length using the --hash-length option. This advanced feature allows for tailoring hash outputs to exact requirements.
+
+## Advanced Usage
+
+## 1. Parallel Salting
+
+```bash
+python3 alecto.py <password> -a <algorithm> --salt --both-salt
+```
+
+## 2. Custom Salt Usage
+
+```bash
+python3 alecto.py <password> -a <algorithm> --salt --custom-salt
+```
+
+## 3. Custom Byte Length For SHAKE128 AND SHAKE256
+
+```bash
+python3 alecto.py -a shake128 <password> --hash-length <hash length>
+```
+
+## Disclaimer
+
+Alecto is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
