@@ -133,3 +133,7 @@ Alecto is intended for educational and security research purposes. Users are adv
 ## License
 
 Alecto is licensed under GNU General Public License
+
+## Author
+
+Veilwr4ith
