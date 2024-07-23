@@ -1,6 +1,34 @@
 # Alecto
 Alecto is an advanced command-line utility designed for sophisticated password hashing, offering a comprehensive set of features and algorithms to bolster security. Below, you'll find an in-depth guide on Alecto's features, advanced usage, supported algorithms, and practical examples.
 
+## Installation
+
+## Manual
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/veilwr4ith/Alecto
+```
+
+2. Navigate to the directory and install the requirements
+
+```bash
+pip3 install -r requirements.txt
+```
+
+3. Run the script
+
+```bash
+python3 alecto.py
+```
+
+## Install it from PyPI (I cannot access my PyPi account but you can still install Alecto there! Saphiraaa and veilwr4ith are the same person:>)
+
+```bash
+pip3 install alecto
+```
+
 ## Features
 
 ## Extensive Algorithm Support
