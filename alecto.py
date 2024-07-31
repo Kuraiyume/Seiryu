@@ -20,7 +20,7 @@ tool = r"""
           Veilwr4ith
 
 """
-
+print(tool)
 parser = argparse.ArgumentParser(description="Alecto: Advanced Hash Generator")
 
 def generate_random_hex_key():
