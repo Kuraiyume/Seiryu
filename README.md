@@ -25,8 +25,16 @@ python3 seiryu.py
 
 ## Install it from PyPI
 
+1. Install it using Pip
+
 ```bash
 pip3 install seiryu
+```
+
+2. Run it
+
+```bash
+seiryu
 ```
 
 ## Features
