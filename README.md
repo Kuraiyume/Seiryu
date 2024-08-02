@@ -1,5 +1,5 @@
-# Alecto
-Alecto is an advanced command-line utility designed for sophisticated password hashing, offering a comprehensive set of features and algorithms to bolster security. Below, you'll find an in-depth guide on Alecto's features, advanced usage, supported algorithms, and practical examples.
+# Seiryu
+Seiryu is an advanced command-line utility designed for sophisticated plaintext hashing, offering a comprehensive set of features and algorithms to bolster security. Below, you'll find an in-depth guide on Alecto's features, advanced usage, supported algorithms, and practical examples.
 
 ## Installation
 
@@ -8,7 +8,7 @@ Alecto is an advanced command-line utility designed for sophisticated password h
 1. Clone the repository
 
 ```bash
-git clone https://github.com/veilwr4ith/Alecto
+git clone https://github.com/veilwr4ith/Seiryu
 ```
 
 2. Navigate to the directory and install the requirements
@@ -20,20 +20,20 @@ pip3 install -r requirements.txt
 3. Run the script
 
 ```bash
-python3 alecto.py
+python3 seiryu.py
 ```
 
-## Install it from PyPI (I cannot access my PyPi account but you can still install Alecto there! Saphiraaa and veilwr4ith are the same person:>)
+## Install it from PyPI
 
 ```bash
-pip3 install alecto
+pip3 install seiryu
 ```
 
 ## Features
 
 ## Extensive Algorithm Support
 
-Alecto boasts support for a diverse array of hashing algorithms, providing users with the flexibility to tailor their security measures to specific requirements. Here is a list of available algorithms:
+Seiryu boasts support for a diverse array of hashing algorithms, providing users with the flexibility to tailor their security measures to specific requirements. Here is a list of available algorithms:
 
 - md5
 - sha1
@@ -95,44 +95,44 @@ Alecto boasts support for a diverse array of hashing algorithms, providing users
 Directly specify the hashing algorithm:
 
 ```bash
-python3 alecto.py -a <algorithm> <password>
+python3 seiryu.py -a <algorithm> <plaintext>
 ```
 
 ## Custom Salt Integration
 
-Alecto can provide custom salts into the hashing process. Alecto seamlessly accommodates custom salts, providing users with granular control over the salting mechanism, a crucial aspect of robust password storage.
+Seiryu can provide custom salts into the hashing process. Alecto seamlessly accommodates custom salts, providing users with granular control over the salting mechanism.
 
 ## Fine-tuned Hash Length Specification
 
-Specific to shake_128 and shake_256 algorithms, Alecto enables users to precisely specify the hash length using the --hash-length option. This advanced feature allows for tailoring hash outputs to exact requirements.
+Specific to shake_128 and shake_256 algorithms, Alecto enables users to precisely specify the hash length using the --hash-length option.
 
 ## Advanced Usage
 
 ## 1. Parallel Salting
 
 ```bash
-python3 alecto.py <password> -a <algorithm> --salt --both-salt
+python3 seiryu.py <plaintext> -a <algorithm> --salt --both-salt
 ```
 
 ## 2. Custom Salt Usage
 
 ```bash
-python3 alecto.py <password> -a <algorithm> --salt --custom-salt
+python3 seiryu.py <plaintext> -a <algorithm> --salt --custom-salt
 ```
 
 ## 3. Custom Byte Length For SHAKE128 AND SHAKE256
 
 ```bash
-python3 alecto.py -a shake128 <password> --hash-length <hash length>
+python3 seiryu.py -a shake128 <plaintext> --hash-length <hash length>
 ```
 
 ## Disclaimer
 
-Alecto is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
+Seiryu is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
 
 ## License
 
-Alecto is licensed under GNU General Public License
+Seiryu is licensed under GNU General Public License
 
 ## Author
 
