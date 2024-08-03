@@ -17,7 +17,7 @@ tool = r"""
 \ \ / _ \ | '__| | | | | | |
 _\ \  __/ | |  | |_| | |_| |
 \__/\___|_|_|   \__, |\__,_|
-                |___/       
+                |___/ v1.0.13    
                 veilwr4ith
 """
 
@@ -29,19 +29,19 @@ def generate_random_hex_key():
 
 def get_user_choice(keys):
     while True:
-        print("Choose a key:")
+        print("[*] Choose a key:")
         for i, key in enumerate(keys):
             print(f"{i + 1}. {key}")
 
-        choice = input("Enter the number corresponding to your choice: ")
+        choice = input("[*] Enter the number corresponding to your choice: ")
         try:
             choice = int(choice)
             if 1 <= choice <= len(keys):
                 return keys[choice - 1]
             else:
-                print("Invalid choice. Please enter a number between 1 and", len(keys))
+                print("[-] Invalid choice. Please enter a number between 1 and", len(keys))
         except ValueError:
-            print("Invalid input. Please enter a number.")
+            print("[-] Invalid input. Please enter a number.")
 
 def hash_text(text, algorithm, salt=None, custom_salt=None):
     args = parser.parse_args()
@@ -353,17 +353,17 @@ def hash_text(text, algorithm, salt=None, custom_salt=None):
         key = bytes.fromhex(chosen_key)
         message = text.encode('utf-8')
         hash_value = siphashc.siphash(key, message)
-        choose_format = input("Decimal Format or Hexadecimal Format? (D/H): ")
+        choose_format = input("[*] Decimal Format or Hexadecimal Format? (D/H): ")
         if choose_format.lower() == 'd':
-            print(f"[+]Key: {chosen_key}")
+            print(f"[+] Key: {chosen_key}")
             return f"{hash_value}"
         elif choose_format.lower() == 'h':
-            print(f"[+]Key: {chosen_key}")
+            print(f"[+] Key: {chosen_key}")
             return f"{hash_value:x}"
         else:
-            raise ValueError("Invalid Option")
+            raise ValueError("[-] Invalid Option")
     else:
-        raise ValueError("Unsupported algorithm the hash might be invalid or not available on your system")
+        raise ValueError("[-] Unsupported algorithm the hash might be invalid or not available on your system")
 
     if salt:
         text = salt + text
@@ -403,64 +403,56 @@ def main():
     parser.add_argument("--hash-length", type=int, help="Specify the length of the hash in bytes(Only for shake 128 and shake 256)")
     parser.add_argument("--desired-salt", help="Specify desired salt (only applicable with --custom-salt")
     args = parser.parse_args()
-
-    plaintext = args.password
-
+    plaintext = args.plaintext
     try:
         algorithm = args.algorithm or get_algorithm_choice()
-
         if args.hash_length and algorithm not in ['shake_128', 'shake_256']:
-            raise ValueError("--hash-length is only available for shake_128 and shake_256 algorithms")
-
+            raise ValueError("[-] '--hash-length' is only available for shake_128 and shake_256 algorithms")
         if algorithm == 'siphash' and (args.salt or args.custom_salt):
-            raise ValueError("Cannot use salt in 'Siphash' algorithm.")
+            raise ValueError("[-] Cannot use salt in 'Siphash' algorithm.")
 
         if args.desired_salt and not args.custom_salt and not args.both_salt:
-            raise ValueError("--desired-salt can only be used with --custom-salt and --both-salt")
+            raise ValueError("[-] '--desired-salt' can only be used with '--custom-salt' and '--both-salt'")
 
         if args.salt:
             if args.both_salt:
                 custom = args.desired_salt
-                print(tool)
                 uuid_salt = str(uuid.uuid4())
                 random_salt = os.urandom(25).hex()
                 all_salt = uuid_salt + custom + random_salt
                 salt = all_salt
                 hashed_text = hash_text(plaintext, algorithm, salt)
-                print(f"[+]Plaintext: {plaintext}")
-                print(f"[+]Custom Salt: {custom}")
-                print(f"[+]Salt: {salt}")
+                print(f"[+] Plaintext: {plaintext}")
+                print(f"[+] Custom Salt: {custom}")
+                print(f"[+] Salt: {salt}")
                 print("-" * 20)
-                print(f"[+]Hash: {hashed_text}")
+                print(f"[+] Hash: {hashed_text}")
             elif args.custom_salt:
                 custom = args.desired_salt
-                print(tool)
                 hashed_text = hash_text(plaintext, algorithm, custom)
-                print(f"[+]Plaintext: {plaintext}")
-                print(f"[+]Salt: {custom}")
+                print(f"[+] Plaintext: {plaintext}")
+                print(f"[+] Salt: {custom}")
                 print("-" * 20)
-                print(f"[+]HASH: {hashed_text}")
+                print(f"[+] Hash: {hashed_text}")
             elif args.default_salt:
-                print(tool)
                 uuid_salt = str(uuid.uuid4())
                 random_salt = os.urandom(16).hex()
                 salt = uuid_salt + random_salt
                 hashed_text = hash_text(plaintext, algorithm, salt)
-                print(f"[+]Plaintext: {plaintext}")
-                print(f"[+]Salt: {salt}")
+                print(f"[+] Plaintext: {plaintext}")
+                print(f"[+] Salt: {salt}")
                 print("-" * 20)
-                print(f"[+]Hash: {hashed_text}")
+                print(f"[+] Hash: {hashed_text}")
         else:
-            print(tool)
             hashed_text = hash_text(plaintext, algorithm)
-            print(f"[+]Plaintext: {plaintext}")
+            print(f"[+] Plaintext: {plaintext}")
             print("-" * 20)
-            print(f"[+]Hash: {hashed_text}")
+            print(f"[+] Hash: {hashed_text}")
 
     except ValueError:
-        print("Error: Unsupported algorithm or might not be available on your system")
+        print("[-] Error: Unsupported algorithm or might not be available on your system")
     except Exception as e:
-        print("An error occurred:", e)
+        print("[-] An error occurred:", e)
 
 if __name__ == "__main__":
     main()
