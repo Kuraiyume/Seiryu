@@ -45,18 +45,24 @@ Seiryu boasts support for a diverse array of hashing algorithms, providing users
 
 - md5
 - sha1
-- sha224
 - sha256
-- sha384
 - sha512
-- shake_128
-- shake_256
+- sha224
+- sha384
 - blake2s
 - blake2b
+- md4
+- whirlpool
+- md5-sha1
+- sha128
+- sm3
+- ripemd160
+- shake_128
+- shake_256
 - argon2
 - bcrypt
-- sha3_224
 - sha3_256
+- sha3_224
 - sha3_384
 - sha3_512
 - scrypt
@@ -91,12 +97,15 @@ Seiryu boasts support for a diverse array of hashing algorithms, providing users
 - pbkdf2_hmac_sha1
 - pbkdf2_hmac_sha256
 - pbkdf2_hmac_sha512
-- md4
-- whirlpool
-- sm3
-- ripemd160
-- md5-sha1
-- sha128
+- spookyhash
+- xxhash
+- bcrypt_sha256
+- django_salted_sha1
+- ldap_md5
+- ldap_pbkdf2_sha1
+- ldap_pbkdf2_sha256
+- ldap_pbkdf2_sha512
+- siphash
 
 ## Algorithm Specification
 
