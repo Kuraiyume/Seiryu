@@ -1,5 +1,5 @@
 # Seiryu: The Pinnacle of Advanced Hash Generator
-Seiryu is an advanced command-line utility designed for sophisticated plaintext hashing, offering a comprehensive set of features and algorithms to bolster security. Below, you'll find an in-depth guide on Alecto's features, advanced usage, supported algorithms, and practical examples.
+Seiryu is an advanced command-line utility designed for sophisticated plaintext hashing, offering a comprehensive set of features and algorithms to bolster security. Below, you'll find an in-depth guide on Seiryu's features, advanced usage, supported algorithms, and practical examples.
 
 ## Installation
 
