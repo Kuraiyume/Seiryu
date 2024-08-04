@@ -17,7 +17,7 @@ tool = r"""
 \ \ / _ \ | '__| | | | | | |
 _\ \  __/ | |  | |_| | |_| |
 \__/\___|_|_|   \__, |\__,_|
-                |___/ v1.0.13    
+                |___/ v1.0.16
                 veilwr4ith
 """
 
@@ -363,20 +363,17 @@ def hash_text(text, algorithm, salt=None, custom_salt=None):
         else:
             raise ValueError("[-] Invalid Option")
     else:
-        raise ValueError("[-] Unsupported algorithm the hash might be invalid or not available on your system")
-
+        raise ValueError("[-] Algorithm not supported or parameters are incorrect")
     if salt:
         text = salt + text
     if custom_salt:
         text = custom_salt + text
-
     hash_object.update(text.encode('utf-8'))
     if algorithm in ['shake_128', 'shake_256']:
         hash_length = args.hash_length
         return hash_object.hexdigest(hash_length)
     else:
         return hash_object.hexdigest()
-
 def get_algorithm_choice():
     algorithms = [
         'md5', 'sha256', 'sha512', 'sha224', 'sha384', 'blake2s', 'blake2b',
@@ -395,13 +392,13 @@ def get_algorithm_choice():
 
 def main():
     parser.add_argument("plaintext", help="The plaintext that you want to be hashed")
-    parser.add_argument("--salt", action="store_true", help="Include a salt")
-    parser.add_argument("-c", "--custom-salt", action="store_true", help="Use custom salt")
-    parser.add_argument("-d", "--default-salt", action="store_true", help="Use default salt")
-    parser.add_argument("-a", "--algorithm", help="Select the hashing algorithm")
-    parser.add_argument("-b", "--both-salt", action="store_true", help="Use both custom and default salt")
-    parser.add_argument("--hash-length", type=int, help="Specify the length of the hash in bytes(Only for shake 128 and shake 256)")
-    parser.add_argument("--desired-salt", help="Specify desired salt (only applicable with --custom-salt")
+    parser.add_argument("--algorithm", '-a', help="Select the hashing algorithm")
+    parser.add_argument("--salt", "-s", action="store_true", help="Include a salt")
+    parser.add_argument("--custom-salt", "-c", action="store_true", help="Use custom salt")
+    parser.add_argument("--default-salt", "-d", action="store_true", help="Use default salt")
+    parser.add_argument("--both-salt", "-b", action="store_true", help="Use both custom and default salt")
+    parser.add_argument("--hash-length", "-hlength", type=int, help="Specify the length of the hash in bytes (Only for shake 128 and shake 256)")
+    parser.add_argument("--desired-salt", help="Specify desired salt (Only applicable with --custom-salt)")
     args = parser.parse_args()
     plaintext = args.plaintext
     try:
@@ -409,50 +406,56 @@ def main():
         if args.hash_length and algorithm not in ['shake_128', 'shake_256']:
             raise ValueError("[-] '--hash-length' is only available for shake_128 and shake_256 algorithms")
         if algorithm == 'siphash' and (args.salt or args.custom_salt):
-            raise ValueError("[-] Cannot use salt in 'Siphash' algorithm.")
-
+            raise ValueError("[-] Cannot use salt in 'siphash' algorithm.")
         if args.desired_salt and not args.custom_salt and not args.both_salt:
             raise ValueError("[-] '--desired-salt' can only be used with '--custom-salt' and '--both-salt'")
-
-        if args.salt:
-            if args.both_salt:
-                custom = args.desired_salt
-                uuid_salt = str(uuid.uuid4())
-                random_salt = os.urandom(25).hex()
-                all_salt = uuid_salt + custom + random_salt
-                salt = all_salt
-                hashed_text = hash_text(plaintext, algorithm, salt)
-                print(f"[+] Plaintext: {plaintext}")
-                print(f"[+] Custom Salt: {custom}")
-                print(f"[+] Salt: {salt}")
-                print("-" * 20)
-                print(f"[+] Hash: {hashed_text}")
-            elif args.custom_salt:
-                custom = args.desired_salt
-                hashed_text = hash_text(plaintext, algorithm, custom)
-                print(f"[+] Plaintext: {plaintext}")
-                print(f"[+] Salt: {custom}")
-                print("-" * 20)
-                print(f"[+] Hash: {hashed_text}")
-            elif args.default_salt:
-                uuid_salt = str(uuid.uuid4())
-                random_salt = os.urandom(16).hex()
-                salt = uuid_salt + random_salt
-                hashed_text = hash_text(plaintext, algorithm, salt)
-                print(f"[+] Plaintext: {plaintext}")
-                print(f"[+] Salt: {salt}")
-                print("-" * 20)
-                print(f"[+] Hash: {hashed_text}")
+        if algorithm in ['shake_128', 'shake_256'] and not args.hash_length:
+            raise ValueError("[-] '--hash-length' parameter is required for 'shake_128' or 'shake_256'")
+        if args.both_salt:
+            if not args.salt:
+                raise ValueError("[-] '--both-salt' requires '--salt' to be specified first")
+            if not args.desired_salt:
+                raise ValueError("[-] '--custom-salt' option in '--both-salt' requires '--desired-salt' to be specified")
+            custom = args.desired_salt
+            uuid_salt = str(uuid.uuid4())
+            random_salt = os.urandom(25).hex()
+            all_salt = uuid_salt + custom + random_salt
+            salt = all_salt
+            hashed_text = hash_text(plaintext, algorithm, salt)
+            print(f"[+] Plaintext: {plaintext}")
+            print(f"[+] Custom Salt: {custom}")
+            print(f"[+] Salt: {salt}")
+            print("-" * 20)
+            print(f"[+] Hash: {hashed_text}")
+        elif args.custom_salt:
+            if not args.salt:
+                raise ValueError("[-] '--custom-salt' requires '--salt' to be specified first")
+            if not args.desired_salt:
+                raise ValueError("[-] '--custom-salt' option requires '--desired-salt' to be specified")
+            custom = args.desired_salt
+            hashed_text = hash_text(plaintext, algorithm, custom)
+            print(f"[+] Plaintext: {plaintext}")
+            print(f"[+] Salt: {custom}")
+            print("-" * 20)
+            print(f"[+] Hash: {hashed_text}")
+        elif args.default_salt:
+            if not args.salt:
+                raise ValueError("[-] '--default-salt' requires '--salt' to be specified first")
+            uuid_salt = str(uuid.uuid4())
+            random_salt = os.urandom(16).hex()
+            salt = uuid_salt + random_salt
+            hashed_text = hash_text(plaintext, algorithm, salt)
+            print(f"[+] Plaintext: {plaintext}")
+            print(f"[+] Salt: {salt}")
+            print("-" * 20)
+            print(f"[+] Hash: {hashed_text}")
         else:
             hashed_text = hash_text(plaintext, algorithm)
             print(f"[+] Plaintext: {plaintext}")
             print("-" * 20)
             print(f"[+] Hash: {hashed_text}")
-
-    except ValueError:
-        print("[-] Error: Unsupported algorithm or might not be available on your system")
     except Exception as e:
-        print("[-] An error occurred:", e)
+        print(e)
 
 if __name__ == "__main__":
     main()
