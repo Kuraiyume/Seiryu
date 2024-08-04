@@ -117,30 +117,36 @@ python3 seiryu.py -a <algorithm> <plaintext>
 
 ## Custom Salt Integration
 
-Seiryu can provide custom salts into the hashing process. Alecto seamlessly accommodates custom salts, providing users with granular control over the salting mechanism.
+Seiryu can provide custom salts into the hashing process. Seiryu seamlessly accommodates custom salts, providing users with granular control over the salting mechanism.
 
 ## Fine-tuned Hash Length Specification
 
-Specific to shake_128 and shake_256 algorithms, Alecto enables users to precisely specify the hash length using the --hash-length option.
+Specific to shake_128 and shake_256 algorithms, Seiryu enables users to precisely specify the hash length using the --hash-length option.
 
 ## Advanced Usage
 
-## 1. Parallel Salting
+## 1. Default Salt Usage
 
 ```bash
-python3 seiryu.py <plaintext> -a <algorithm> --salt --both-salt
+python3 seiryu.py <plaintext> -a <algorithm> -s -d
 ```
 
 ## 2. Custom Salt Usage
 
 ```bash
-python3 seiryu.py <plaintext> -a <algorithm> --salt --custom-salt
+python3 seiryu.py <plaintext> -a <algorithm> -s -c --desired-salt <custom salt>
 ```
 
-## 3. Custom Byte Length For SHAKE128 AND SHAKE256
+## 3. Both Salt Usage (Combining Default and Custom Salting)
 
 ```bash
-python3 seiryu.py -a shake128 <plaintext> --hash-length <hash length>
+python3 seiryu.py <plaintext> -a <algorithm> -s -b --desired-salt <custom salt>
+```
+
+## 4. Custom Byte Length For SHAKE128 AND SHAKE256
+
+```bash
+python3 seiryu.py <plaintext> -a shake_128 --hash-length <hash length>
 ```
 
 ## Disclaimer
