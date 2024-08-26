@@ -8,7 +8,7 @@ Seiryu is an advanced command-line utility designed for sophisticated plaintext 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/veilwr4ith/Seiryu
+git clone https://github.com/z33phyr/Seiryu
 ```
 
 2. Navigate to the directory and install the requirements
@@ -151,12 +151,12 @@ python3 seiryu.py <plaintext> -a shake_128 --hash-length <hash length>
 
 ## Disclaimer
 
-Seiryu is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
+- Seiryu is intended for educational and security research purposes. Users are advised to employ the tool responsibly and adhere to ethical guidelines.
 
 ## License
 
-Seiryu is licensed under GNU General Public License
+- Seiryu is licensed under GNU General Public License
 
 ## Author
 
-Veilwr4ith
+- Zephyr
