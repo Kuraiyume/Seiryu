@@ -8,7 +8,7 @@ Seiryu is an advanced command-line utility designed for sophisticated plaintext 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/z33phyr/Seiryu
+git clone https://github.com/Kuraiyume/Seiryu
 ```
 
 2. Navigate to the directory and install the requirements
