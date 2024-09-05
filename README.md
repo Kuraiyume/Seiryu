@@ -159,4 +159,4 @@ python3 seiryu.py <plaintext> -a shake_128 --hash-length <hash length>
 
 ## Author
 
-- Zephyr
+- Kuraiyume
